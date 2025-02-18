@@ -1,35 +1,58 @@
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Button, Container, Image } from "react-bootstrap";
 import { useProduct } from "../hooks/useProduct";
+import { useCategory } from "../hooks/useCategory";
+import { Product } from "../types/types";
+import hero from '../assets/hero.png';
+import "./../styles/Products.css";
+import Categories from "../components/Categories";
+import ProductsList from "../components/ProductsList";
 import { Link } from "react-router-dom";
+import { useProductFilter } from "../context/ProductFilterContext";
 
 const Home = () => {
 
-  const { products } = useProduct();
+  const { products, getProducts } = useProduct();
+  const { categories } = useCategory();
+  
+  const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
+  const { setCategoryFilter } = useProductFilter();
+
+  useEffect(() => {
+    setCategoryFilter('all');
+    const fetchData = async () => {
+      await getProducts();
+      const selectedProductsByCategories = categories.flatMap((category) => {
+        return products.filter((product) => product.category === category).slice(0, 2);
+      });
+      setFeaturedProducts(selectedProductsByCategories);
+    };
+
+    fetchData();
+  }, [categories]);
 
   return (
     <>
-
       <Container>
-        <h1>Home - Listado de productos y categorías</h1>
+        <Image src={ hero } fluid />
+      </Container>
 
-        <Row>
-          {products.map((product) => (
-            <Col key={product.id} sm={12} md={6} lg={4} xl={3} className="mb-4">
-              <Card>
-                <Link to={`/products/${product.id}`} style={{ textDecoration: "none", color: "inherit" }}>
-                  <Card.Img variant="top" src={product.image} height="200" style={{ objectFit: "contain" }} />
-                </Link>
-                <Card.Body>
-                <Card.Title>
-                  <Link to={`/products/${product.id}`} style={{ textDecoration: "none", color: "inherit" }}>
-                    {product.title}
-                  </Link>
-                </Card.Title>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-        </Row>
+      <Container className="text-center my-5">
+        <h2 className="mb-5">Our Categories</h2>
+        <Categories categories={categories} />
+      </Container>
+
+      <Container className="text-center my-5">
+        <h2 className="mb-5">Featured products</h2>
+        <ProductsList products={featuredProducts} />
+      </Container>
+
+      <Container className="text-center my-5">
+        <Link to={`/products`} className="text-decoration-none">
+          <Button variant="outline-dark" className="w-50 py-3 mx-auto">
+            See more products
+          </Button>
+        </Link>
       </Container>
     </>
   );
