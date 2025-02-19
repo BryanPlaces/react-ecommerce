@@ -5,6 +5,7 @@ interface CartContextProps {
   productsCart: CartProduct[];
   addProductToCart: (product: Product) => void;
   updateProductQuantity: (productId: number, amount: number) => void;
+  deleteProduct: (productId: number) => void;
 }
 
 const storedCartProducts = localStorage.getItem('cart-products');
@@ -14,6 +15,7 @@ const CartContext = createContext<CartContextProps>({
   productsCart: [],
   addProductToCart: () => {},
   updateProductQuantity: () => {},
+  deleteProduct: () => {},
 });
 
 export const CartProvider: React.FC<{ children: ReactNode}> = ({ children }) => {
@@ -43,8 +45,13 @@ export const CartProvider: React.FC<{ children: ReactNode}> = ({ children }) => 
     );
   };
 
+  const deleteProduct = (productId: number) => {
+    const newProductsCart = productsCart.filter(product => product.id !== productId);
+    setProductsCart(newProductsCart);
+  }
+
   return (
-    <CartContext.Provider value={{ productsCart, addProductToCart, updateProductQuantity }}>
+    <CartContext.Provider value={{ productsCart, addProductToCart, updateProductQuantity, deleteProduct }}>
       {children}
     </CartContext.Provider>
   );
