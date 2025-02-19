@@ -2,14 +2,18 @@ import { Col, Row, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useProductFilter } from "../context/ProductFilterContext";
 
-const Categories = ({ categories }: { categories: string[] }) => {
+const Categories = ({ categories, withNavigate = false }: { categories: string[], withNavigate?: boolean }) => {
 
   const navigate = useNavigate();
   const { setCategoryFilter } = useProductFilter();
 
   const handleClick = (category: string) => {
     setCategoryFilter(category);
-    navigate('/products');
+
+    if (withNavigate) {
+      navigate('/products');
+      return;
+    }
   }
 
   return (

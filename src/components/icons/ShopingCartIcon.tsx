@@ -1,4 +1,4 @@
-const ShopingCart = () => {
+const ShopingCartIcon = () => {
   return (
     <svg
       width="22"
@@ -17,4 +17,4 @@ const ShopingCart = () => {
   );
  }
  
- export default ShopingCart;
+ export default ShopingCartIcon;

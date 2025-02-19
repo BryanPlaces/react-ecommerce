@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { Navbar, Nav, Container, Button, Badge } from 'react-bootstrap';
-import ShopingCart from "./icons/ShopingCart";
+import { ShopingCartIcon } from ".";
 import { useCart } from "../context/CartContext";
 
 const NavbarComponent = () => {
@@ -24,15 +24,9 @@ const NavbarComponent = () => {
             </Nav.Link>
           </Nav>
           <div className="buttons">
-            {/* <Button as={NavLink} to="/login" variant="outline-dark" className="me-2">
-              <FaSignInAlt className="me-1" /> Login
-            </Button>
-            <Button as={NavLink} to="/register" variant="outline-dark" className="me-2">
-              <FaUserPlus className="me-1" /> Register
-            </Button> */}
             <NavLink to="/cart">
               <Button variant="outline-dark">
-                <ShopingCart /> <Badge bg="danger" style={{fontSize: '10px'}}>{ productsCart.length }</Badge>
+                <ShopingCartIcon /> <Badge bg="danger" style={{fontSize: '10px'}}>{ productsCart.length }</Badge>
               </Button>
             </NavLink>
           </div>
@@ -40,8 +34,6 @@ const NavbarComponent = () => {
       </Container>
     </Navbar>
   );
-
-
 }
 
 export default NavbarComponent;

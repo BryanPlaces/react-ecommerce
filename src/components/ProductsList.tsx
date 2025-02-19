@@ -1,38 +1,39 @@
-import { Card, Col, Row } from "react-bootstrap";
-import { Product } from "../types/types";
-import { Link } from "react-router-dom";
+import { Col, Row } from "react-bootstrap";
 import { useProductFilter } from "../context/ProductFilterContext";
+import ProductItem from "./ProductItem";
+import { useProduct } from "../hooks/useProduct";
+import { useEffect } from "react";
 
-const ProductsList = ({ products }: { products: Product[] }) => {
+const ProductsList = ({ showFeaturedProducts } : { showFeaturedProducts ?: boolean }) => {
 
   const { categoryFilter } = useProductFilter();
-
-  const filteredProducts = categoryFilter === 'all'
-    ? products
-    : products.filter(product => product.category === categoryFilter);
+  const { products, featuredProducts, getFeaturedProducts, getProducts, getProductsByCategory } = useProduct();
     
+  useEffect(() => {
+    if (!showFeaturedProducts) {
+      if (categoryFilter === 'all') {
+        getProducts();
+      } else {
+        getProductsByCategory(categoryFilter);
+      }
+    } else {
+      getFeaturedProducts();
+    }
+  }, [
+    categoryFilter,
+    getProducts,
+    getProductsByCategory,
+    showFeaturedProducts,
+    getFeaturedProducts
+  ]);
+
+  const productsToDisplay = showFeaturedProducts ? featuredProducts : products;
+
   return (
     <Row>
-      {filteredProducts.map((product) => (
+      {productsToDisplay.map((product) => (
         <Col key={product.id} sm={12} md={6} lg={4} xl={3} className="mb-4">
-          <Card className="h-100">
-            <Link to={`/products/${product.id}`} style={{ textDecoration: "none", color: "inherit" }}>
-              <Card.Img variant="top" src={product.image} height="200" style={{ objectFit: "contain" }} />
-            </Link>
-            <Card.Body className="d-flex flex-column">
-              <div className="d-flex justify-content-between align-items-center mb-2">
-                <Card.Title className="product-title m-0">
-                  <Link to={`/products/${product.id}`} style={{ textDecoration: "none", color: "inherit" }}>
-                    {product.title}
-                  </Link>
-                </Card.Title>
-                <span className="product-price">${product.price}</span>
-              </div>
-              <Card.Text className="product-description">
-                {product.description}
-              </Card.Text>
-            </Card.Body>
-          </Card>
+          <ProductItem product={ product } />
         </Col>
       ))}
     </Row>

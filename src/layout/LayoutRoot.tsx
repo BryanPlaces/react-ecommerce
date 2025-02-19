@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "../components/Navbar";
-import { Col, Container, Row } from "react-bootstrap";
+import {Navbar, Footer} from "../components";
 
 const LayoutRoot = () => {
   return (
@@ -9,17 +8,7 @@ const LayoutRoot = () => {
       <div className="flex-grow-1">
         <Outlet />
       </div>
-      
-      <footer className="bg-dark text-light py-3 mt-4">
-        <Container>
-          <Row className="text-center">
-            <Col>
-              <p className="mb-0">&copy; {new Date().getFullYear()} Mi Sitio Web</p>
-            </Col>
-          </Row>
-        </Container>
-      </footer>
-
+      <Footer />
     </div>
   )
 }

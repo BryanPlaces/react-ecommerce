@@ -6,6 +6,7 @@ export function useProduct() {
 
   const [products, setProducts] = useState<Product[]>([]);
   const [product, setProduct] = useState<Product | null>(null);
+  const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
 
   const getProducts = useCallback(async () => {
     const products = await fetchProducts();
@@ -22,5 +23,23 @@ export function useProduct() {
     setProducts(products);
   }, []);
 
-  return { products, product, getProducts, getProductById, getProductsByCategory }
+  const getFeaturedProducts = useCallback(async () => {
+
+    const allProducts: Product[] = await fetchProducts();
+    const shuffledProducts = allProducts.sort(() => 0.5 - Math.random());
+    const selectedProducts = shuffledProducts.slice(0, 8);
+
+    setFeaturedProducts(selectedProducts);
+  }, []);
+  
+
+  return {
+    products,
+    product,
+    getProducts,
+    getProductById,
+    getProductsByCategory,
+    featuredProducts,
+    getFeaturedProducts
+  }
 }

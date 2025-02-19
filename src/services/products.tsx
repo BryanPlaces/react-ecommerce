@@ -39,7 +39,7 @@ export const fetchCategories = async() => {
 
 export const fetchProductsByCategory = async(category: string) => {
   
-  const url = `${BASE_URL}/products/categories/${category}`;
+  const url = `${BASE_URL}/products/category/${category}`;
   
   const data = await fetchData(url);
   return data;
