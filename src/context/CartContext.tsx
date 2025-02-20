@@ -1,12 +1,5 @@
 import { createContext, useState, ReactNode, useContext, useEffect } from "react";
-import { Product, CartProduct } from "../types/types";
-
-interface CartContextProps {
-  productsCart: CartProduct[];
-  addProductToCart: (product: Product) => void;
-  updateProductQuantity: (productId: number, amount: number) => void;
-  deleteProduct: (productId: number) => void;
-}
+import { Product, CartProduct, CartContextProps } from "../types/types";
 
 const storedCartProducts = localStorage.getItem('cart-products');
 const initialState: CartProduct[] = storedCartProducts ? JSON.parse(storedCartProducts) : [];
@@ -16,11 +9,43 @@ const CartContext = createContext<CartContextProps>({
   addProductToCart: () => {},
   updateProductQuantity: () => {},
   deleteProduct: () => {},
+  cleanCart: () => {},
+  userInfo: {
+    name: "",
+    lastname: "",
+    address: "",
+    postalCode: "",
+  },
+  setUserInfo: () => {},
+  paymentMethod: "",
+  setPaymentMethod: () => {},
+  cardInfo: {
+    cardNumber: "",
+    expirationDate: "",
+    cvv: "",
+    cardholderName: "",
+  },
+  setCardInfo: () => {},
+  isFormValid: () => false
 });
 
 export const CartProvider: React.FC<{ children: ReactNode}> = ({ children }) => {
 
   const [productsCart, setProductsCart] = useState<CartProduct[]>(initialState);
+  const [userInfo, setUserInfo] = useState({
+    name: "",
+    lastname: "",
+    address: "",
+    postalCode: "",
+  });
+  const [paymentMethod, setPaymentMethod] = useState("");
+  const [cardInfo, setCardInfo] = useState({
+    cardNumber: "",
+    expirationDate: "",
+    cvv: "",
+    cardholderName: "",
+  });
+
 
   useEffect(() => {
     localStorage.setItem('cart-products', JSON.stringify(productsCart));
@@ -50,8 +75,34 @@ export const CartProvider: React.FC<{ children: ReactNode}> = ({ children }) => 
     setProductsCart(newProductsCart);
   }
 
+  const cleanCart = () => {
+    setProductsCart([]);
+  }
+
+  const isFormValid = () => {
+    return (
+      userInfo.name.trim() !== "" &&
+      userInfo.lastname.trim() !== "" &&
+      userInfo.address.trim() !== "" &&
+      userInfo.postalCode.trim() !== ""
+    );
+  };
+
   return (
-    <CartContext.Provider value={{ productsCart, addProductToCart, updateProductQuantity, deleteProduct }}>
+    <CartContext.Provider value={{ 
+      productsCart,
+      addProductToCart,
+      updateProductQuantity,
+      deleteProduct,
+      cleanCart,
+      userInfo,
+      setUserInfo,
+      paymentMethod,
+      setPaymentMethod,
+      cardInfo,
+      setCardInfo,
+      isFormValid,
+    }}>
       {children}
     </CartContext.Provider>
   );

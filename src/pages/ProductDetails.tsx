@@ -1,7 +1,7 @@
 import { useProduct } from "../hooks/useProduct";
 import { NavLink, useParams } from "react-router-dom";
-import { useEffect } from "react";
-import { Container, Row, Col, Button, Image } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Container, Row, Col, Button, Image, Alert } from "react-bootstrap";
 import { useCart } from "../context/CartContext";
 import { Product } from "../types/types";
 
@@ -9,10 +9,12 @@ const ProductDetails = () => {
 
   const { productId } = useParams<{ productId: string }>();
   const { product, getProductById } = useProduct();
+  const [ showAlert, setShowAlert ]= useState(false);
 
   const { addProductToCart } = useCart();
 
   const addProduct = (product: Product) => {
+    setShowAlert(true);
     addProductToCart(product)
   };
 
@@ -23,7 +25,7 @@ const ProductDetails = () => {
     }, [productId, getProductById]);
 
     if (!product) {
-      return <div>Loading...</div>
+      return <Container className="text-center">Loading...</Container>
     }
 
   return (
@@ -45,6 +47,13 @@ const ProductDetails = () => {
           </p>
           <h3 className="display-6 fw-bold my-4">$ {product.price}</h3>
           <p className="lead">{product.description}</p>
+
+          { showAlert &&
+            <Alert key='info' variant='info'>
+              Product added to your cart.
+            </Alert>
+          }
+
           <Button
             variant="outline-dark"
             className="px-4 py-2"

@@ -9,6 +9,10 @@ import ProductItemCart from "./cart/ProductItemCart";
 import DeleteItemIcon from "./icons/DeleteItemIcon";
 import ShopingCartIcon from "./icons/ShopingCartIcon";
 
+// Checkout
+import PaymentMethodForm from "./checkout/PaymentMethodForm";
+import UserInfoForm from "./checkout/UserInfoForm";
+
 export {
   Navbar,
   Categories,
@@ -17,5 +21,7 @@ export {
   ProductItemCart,
   Footer,
   DeleteItemIcon,
-  ShopingCartIcon
+  ShopingCartIcon,
+  PaymentMethodForm,
+  UserInfoForm
 }

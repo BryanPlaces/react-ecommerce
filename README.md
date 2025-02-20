@@ -1,50 +1,86 @@
-# React + TypeScript + Vite
+# E-commerce - Technical Test
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a technical test of an E-commerce developed with React 18, TypeScript, React Bootstrap, and React Router DOM. The installation was done using Vite for optimal performance.
 
-Currently, two official plugins are available:
+## Technologies Used
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React 18**
+- **TypeScript**
+- **React Bootstrap**
+- **React Router DOM**
+- **Vite**
 
-## Expanding the ESLint configuration
+## Installation and Execution
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### 1. Clone the Repository
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+git clone <REPOSITORY_URL>
+cd project-name
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### 2. Install Dependencies
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+Run the following command to install all necessary dependencies:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+npm install
 ```
+
+### 3. Start the Development Server
+
+To run the project in development mode, use the following command:
+
+```bash
+npm run dev
+```
+
+By default, the project will run at `http://localhost:5173/` (you can check the URL in the terminal after executing the previous command).
+
+### 4. Build for Production
+
+If you want to generate the production build, use the following command:
+
+```bash
+npm run build
+```
+
+The generated files will be in the `dist/` folder.
+
+### 5. Preview the Production Version
+
+To preview the production version locally, you can run:
+
+```bash
+npm run preview
+```
+
+## Project Structure
+
+```
+├── src/
+│   ├── assets/       # Static files (images, icons, etc.)
+│   ├── components/   # Reusable components
+│   ├── context/      # Reusable context
+│   ├── hooks/
+│   ├── layout/
+│   ├── pages/        # Main pages
+│   ├── router/       # Route configuration with react-router-dom
+|   ├── services/     # API request handling
+|   ├── styles/
+│   ├── types/        # TypeScript interfaces
+│   ├── main.tsx      # Project entry point
+├── public/           # Public files
+├── tsconfig.json     # TypeScript configuration
+├── vite.config.ts    # Vite configuration
+├── package.json      # Dependencies and scripts
+```
+
+## Live Demo
+
+You can view the project at the following URL: https://bryan-react-ecommerce.netlify.app/
+
+## Contact
+
+If you have any questions or suggestions, feel free to contact me. Thank you for reviewing this project!
+

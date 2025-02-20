@@ -1,10 +1,17 @@
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import { useCart } from "../context/CartContext";
 import { ProductItemCart, ResumeCart } from "../components";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
 
   const { productsCart } = useCart();
+  const navigate = useNavigate();
+  
+  const goToCheckout = () => {
+    navigate('/checkout');
+    return;
+  }
 
   return (
     <Container className="my-5">
@@ -18,7 +25,11 @@ const Cart = () => {
         </Col>
 
         <Col sm={12} md={4}>
-          <ResumeCart />
+          <ResumeCart>
+            <Button variant="dark" className="w-100" onClick={ goToCheckout }>
+              CheckOut
+          </Button>
+          </ResumeCart>
         </Col>
       </Row>
     </Container>

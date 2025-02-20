@@ -1,7 +1,11 @@
-import { Button, Card, Col, Row } from "react-bootstrap";
+import {  Card, Col, Row } from "react-bootstrap";
 import { useCart } from "../../context/CartContext";
 
-const ResumeCart = () => {
+interface ResumeCartProps {
+  children?: React.ReactNode;
+}
+
+const ResumeCart:React.FC<ResumeCartProps> = ({ children }) => {
 
   const { productsCart } = useCart();
 
@@ -37,9 +41,8 @@ const ResumeCart = () => {
           </Col>
         </Row>
 
-        <Button variant="dark" className="w-100">
-          CheckOut
-        </Button>
+        { children}
+        
       </Card.Body>
     </Card>
   );

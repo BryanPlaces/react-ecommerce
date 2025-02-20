@@ -5,7 +5,7 @@ const Footer = () => (
     <Container>
       <Row className="text-center">
         <Col>
-          <p className="mb-0">&copy; {new Date().getFullYear()} Mi Sitio Web</p>
+          <p className="mb-0">&copy; {new Date().getFullYear()} E-Commerce web page</p>
         </Col>
       </Row>
     </Container>
