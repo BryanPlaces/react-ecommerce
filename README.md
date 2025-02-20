@@ -15,8 +15,8 @@ This project is a technical test of an E-commerce developed with React 18, TypeS
 ### 1. Clone the Repository
 
 ```bash
-git clone <REPOSITORY_URL>
-cd project-name
+git clone https://github.com/BryanPlaces/react-ecommerce.git
+cd react-ecommerce
 ```
 
 ### 2. Install Dependencies
